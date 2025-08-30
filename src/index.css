@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   width: 100vw;
   height: 100dvh;
   margin: 0;
@@ -14,6 +15,9 @@ html, body {
 .card-rotate {
   position: absolute;
   cursor: grab;
+  user-select: none;
+  -webkit-user-select: none; /* For Safari */
+  -ms-user-select: none; /* For IE/Edge */
 }
 
 .card {

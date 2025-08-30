@@ -1,11 +1,44 @@
 import { Box, Typography } from "@mui/material";
 import { mainContent } from "../../constants/constants";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Stack from "./Stack";
 
 const Main = () => {
+  const divRef = useRef<HTMLDivElement>(null);
   const [iconVisible, setIconVisible] = useState("");
+  const [right, setRight] = useState(0);
+  const [mouseEnter, setMouseEnter] = useState(false);
+  const [defaultMousePosition, setDefaultMousePosition] = useState(0);
+  const [cards, setCards] = useState(mainContent);
+
+  const onSendToBack = (id: number) => {
+    console.log("Checking id after hover", id);
+    setCards((prev) => {
+      const newCards = [...prev];
+      const index = newCards.findIndex((card) => card.id === id);
+      if (index === -1) return prev;
+      const [card] = newCards.splice(index, 1);
+      newCards.push(card);
+      return newCards;
+    });
+  };
+
+  useEffect(() => {
+    const updateMousePosition = (ev: MouseEvent) => {
+      if (divRef.current) {
+        setRight(
+          ev.clientX - divRef.current.getBoundingClientRect().left - 125
+        );
+      }
+    };
+    window.addEventListener("mousemove", updateMousePosition);
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition);
+    };
+  }, []);
+
   return (
     <Box
       sx={{
@@ -62,18 +95,43 @@ const Main = () => {
             justifyContent: "space-between",
             alignItems: "flex-end",
           }}
+          ref={divRef}
+          onMouseEnter={() => setMouseEnter(true)}
+          onMouseLeave={() => {
+            setMouseEnter(false);
+            setDefaultMousePosition(right);
+          }}
         >
+          <Box
+            sx={{
+              position: "absolute",
+              top: -50,
+              left: mouseEnter ? right : defaultMousePosition,
+            }}
+          >
+            <Stack
+              randomRotation={true}
+              sensitivity={180}
+              sendToBackOnClick={false}
+              cardDimensions={{ width: 250, height: 300 }}
+              cardsData={cards}
+              onSendToBack={onSendToBack}
+            />
+          </Box>
           {mainContent.map((item) => (
             <Box
               key={item.id}
+              onMouseEnter={() => onSendToBack(item.id)}
               sx={{
                 textAlign: "center",
                 flex: 1,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "flex-end",
                 gap: "2px",
+                height: "100%",
+                zIndex: 2
               }}
             >
               <Typography variant="h6">{item.name}</Typography>
@@ -81,7 +139,9 @@ const Main = () => {
               <Box
                 component={motion.div}
                 initial={{ paddingRight: "0rem" }}
-                animate={{ paddingRight: iconVisible === item.email ? "1.5rem" : "0rem" }}
+                animate={{
+                  paddingRight: iconVisible === item.email ? "1.5rem" : "0rem",
+                }}
                 transition={{ duration: 0.25 }}
                 sx={{
                   color: "#7C7D7F",
