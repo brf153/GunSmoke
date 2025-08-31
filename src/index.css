@@ -21,8 +21,6 @@ body {
 }
 
 .card {
-  border-radius: 20px;
-  border: 5px solid #fff;
   overflow: hidden;
 }
 

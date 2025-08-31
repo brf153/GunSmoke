@@ -28,7 +28,7 @@ const theme = createTheme({
         @font-face {
           font-family: 'PPFragmentSans';
           src: url('/fonts/PPFragment-SansRegular.otf') format('opentype');
-          font-weight: bold;
+          font-weight: normal;
           font-style: normal;
         }
 

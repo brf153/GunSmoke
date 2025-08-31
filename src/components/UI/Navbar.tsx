@@ -59,6 +59,7 @@ const Navbar = () => {
           px: 4,
           gap: 2,
           boxSizing: "border-box",
+          zIndex: 10
         }}
       >
         <Typography sx={{ fontStyle: "inherit" }}>Paris 8:56 AM</Typography>

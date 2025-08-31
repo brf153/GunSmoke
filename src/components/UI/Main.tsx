@@ -91,7 +91,7 @@ const Main = () => {
             zIndex: 1,
             width: "100%",
             py: 2,
-            height: "100%",
+            height: "80%",
             justifyContent: "space-between",
             alignItems: "flex-end",
           }}
@@ -105,7 +105,7 @@ const Main = () => {
           <Box
             sx={{
               position: "absolute",
-              top: -50,
+              top: -70,
               left: mouseEnter ? right : defaultMousePosition,
             }}
           >
@@ -113,7 +113,7 @@ const Main = () => {
               randomRotation={true}
               sensitivity={180}
               sendToBackOnClick={false}
-              cardDimensions={{ width: 250, height: 300 }}
+              cardDimensions={{ width: 260, height: 340 }}
               cardsData={cards}
               onSendToBack={onSendToBack}
             />
@@ -134,8 +134,8 @@ const Main = () => {
                 zIndex: 2
               }}
             >
-              <Typography variant="h6">{item.name}</Typography>
-              <Typography variant="body2">{item.position}</Typography>
+              <Typography component={"span"}>{item.name}</Typography>
+              <Typography component={"span"}>{item.position}</Typography>
               <Box
                 component={motion.div}
                 initial={{ paddingRight: "0rem" }}
