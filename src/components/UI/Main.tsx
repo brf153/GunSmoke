@@ -12,18 +12,8 @@ const Main = () => {
   const [mouseEnter, setMouseEnter] = useState(false);
   const [defaultMousePosition, setDefaultMousePosition] = useState(0);
   const [cards, setCards] = useState(mainContent);
-
-  const onSendToBack = (id: number) => {
-    console.log("Checking id after hover", id);
-    setCards((prev) => {
-      const newCards = [...prev];
-      const index = newCards.findIndex((card) => card.id === id);
-      if (index === -1) return prev;
-      const [card] = newCards.splice(index, 1);
-      newCards.push(card);
-      return newCards;
-    });
-  };
+   const [activeCard, setActiveCard] = useState<number | null>(null);
+   const [prevCard, setPrevCard] = useState<number | null>(1);
 
   useEffect(() => {
     const updateMousePosition = (ev: MouseEvent) => {
@@ -115,13 +105,17 @@ const Main = () => {
               sendToBackOnClick={false}
               cardDimensions={{ width: 260, height: 340 }}
               cardsData={cards}
-              onSendToBack={onSendToBack}
+              setCards={setCards}
+              activeCard={activeCard}
+              prevCard={prevCard}
+              setPrevCard={setPrevCard}
             />
           </Box>
           {mainContent.map((item) => (
             <Box
               key={item.id}
-              onMouseEnter={() => onSendToBack(item.id)}
+              // onMouseEnter={() => onSendToBack(item.id)}
+              onMouseEnter={() => setActiveCard(item.id)}
               sx={{
                 textAlign: "center",
                 flex: 1,
