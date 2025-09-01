@@ -13,7 +13,7 @@ const Main = () => {
   const [defaultMousePosition, setDefaultMousePosition] = useState(0);
   const [cards, setCards] = useState(mainContent);
    const [activeCard, setActiveCard] = useState<number | null>(null);
-   const [prevCard, setPrevCard] = useState<number | null>(1);
+   const [prevCard, setPrevCard] = useState<number | null>(0);
 
   useEffect(() => {
     const updateMousePosition = (ev: MouseEvent) => {

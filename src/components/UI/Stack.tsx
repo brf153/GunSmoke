@@ -55,13 +55,14 @@ export default function Stack({
   prevCard,
   setPrevCard,
 }: StackProps) {
-
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     if (activeCard !== null) {
+      
       setIsAnimating(true);
       const timeout = setTimeout(() => {
+        console.log("Checking activeCard", activeCard)
         onSendToBack(activeCard);
         setIsAnimating(false);
         setPrevCard(activeCard);
@@ -74,10 +75,19 @@ export default function Stack({
   const onSendToBack = (id: number) => {
     setCards((prev) => {
       const newCards = [...prev];
+      console.log("Checking id", id)
       const index = newCards.findIndex((card) => card.id === id);
-      if (index === -1) return prev;
-      const [card] = newCards.splice(index, 1);
-      newCards.unshift(card);
+      console.log("Checking index", index);
+      if (index !== -1) {
+        // take everything after the card and bring it in front
+        const rotated = [
+          ...newCards.slice(index),
+          ...newCards.slice(0, index),
+        ];
+        console.log("Checking rotated", rotated);
+        return rotated;
+      }
+      console.log("Checking newCards", newCards);
       return newCards;
     });
   };
@@ -117,9 +127,7 @@ export default function Stack({
                 height: cardDimensions.height,
                 position: "absolute",
                 transformStyle: "preserve-3d",
-                zIndex: isAnimating && isPrevCard
-                  ? cardsData.length + 1
-                  : cardsData.length - index,
+                zIndex: cardsData.length - index,
 
                 // CSS variables
                 ["--member-pictures-image-index" as any]: index,
