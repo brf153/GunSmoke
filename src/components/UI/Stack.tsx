@@ -59,10 +59,8 @@ export default function Stack({
 
   useEffect(() => {
     if (activeCard !== null) {
-      
       setIsAnimating(true);
       const timeout = setTimeout(() => {
-        console.log("Checking activeCard", activeCard)
         onSendToBack(activeCard);
         setIsAnimating(false);
         setPrevCard(activeCard);
@@ -75,19 +73,12 @@ export default function Stack({
   const onSendToBack = (id: number) => {
     setCards((prev) => {
       const newCards = [...prev];
-      console.log("Checking id", id)
       const index = newCards.findIndex((card) => card.id === id);
-      console.log("Checking index", index);
       if (index !== -1) {
         // take everything after the card and bring it in front
-        const rotated = [
-          ...newCards.slice(index),
-          ...newCards.slice(0, index),
-        ];
-        console.log("Checking rotated", rotated);
+        const rotated = [...newCards.slice(index), ...newCards.slice(0, index)];
         return rotated;
       }
-      console.log("Checking newCards", newCards);
       return newCards;
     });
   };
@@ -104,7 +95,9 @@ export default function Stack({
     >
       {cardsData.map((card, index) => {
         const isPrevCard = prevCard === card.id;
-
+        const isActiveCard = activeCard === card.id;
+        const isSendBack =
+          prevCard !== null && activeCard !== null && prevCard < activeCard;
         return (
           <CardRotate
             key={card.id}
@@ -115,7 +108,10 @@ export default function Stack({
               className="card"
               animate={{
                 // animate progress from 0 -> 1 when sending to back
-                "--progress": isAnimating && isPrevCard ? [0, 1] : 0,
+                "--progress":
+                  isAnimating && (isSendBack ? isPrevCard : isActiveCard)
+                    ? [0, 1]
+                    : 0,
               }}
               initial={{ "--progress": 0 }}
               transition={{
