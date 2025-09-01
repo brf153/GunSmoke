@@ -100,7 +100,6 @@ const Main = () => {
             }}
           >
             <Stack
-              randomRotation={true}
               sensitivity={180}
               sendToBackOnClick={false}
               cardDimensions={{ width: 260, height: 340 }}

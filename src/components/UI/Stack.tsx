@@ -25,13 +25,11 @@ function CardRotate({ children }: CardRotateProps) {
 }
 
 interface StackProps {
-  randomRotation?: boolean;
   sensitivity?: number;
   cardDimensions?: { width: number; height: number };
   sendToBackOnClick?: boolean;
   cardsData?: { id: number; img: string }[];
   onSendToBack?: (id: number) => void;
-  animationConfig?: { stiffness: number; damping: number };
   activeCard: number | null;
   setCards: React.Dispatch<
     React.SetStateAction<
@@ -49,11 +47,9 @@ interface StackProps {
 }
 
 export default function Stack({
-  randomRotation = false,
   sensitivity = 200,
   cardDimensions = { width: 208, height: 208 },
   cardsData = [],
-  animationConfig = { stiffness: 260, damping: 20 },
   setCards,
   activeCard,
   prevCard,
