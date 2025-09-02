@@ -13,7 +13,6 @@ function CardRotate({ children }: CardRotateProps) {
     <motion.div
       style={{
         position: "absolute",
-        cursor: "grab",
         userSelect: "none",
         WebkitUserSelect: "none",
         msUserSelect: "none",
