@@ -63,7 +63,7 @@ export default function Stack({
         onSendToBack(activeCard);
         setIsAnimating(false);
         setPrevCard(activeCard);
-      }, 800);
+      }, 500);
 
       return () => clearTimeout(timeout);
     }
@@ -114,7 +114,7 @@ export default function Stack({
               }}
               initial={{ "--progress": 0 }}
               transition={{
-                duration: isAnimating && isPrevCard ? 0.8 : 0.3,
+                duration: isAnimating && (isPrevCard || isActiveCard) ? 0.5 : 0.3,
                 ease: [0.4, 0.0, 0.2, 1],
               }}
               style={{
