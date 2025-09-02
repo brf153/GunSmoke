@@ -80,7 +80,7 @@ const Main = () => {
             gap: 2,
             zIndex: 1,
             width: "100%",
-            py: 2,
+            pt: 2,
             height: "80%",
             justifyContent: "space-between",
             alignItems: "flex-end",
@@ -95,14 +95,14 @@ const Main = () => {
           <Box
             sx={{
               position: "absolute",
-              top: -70,
+              top: -15,
               left: mouseEnter ? right : defaultMousePosition,
             }}
           >
             <Stack
               sensitivity={180}
               sendToBackOnClick={false}
-              cardDimensions={{ width: 260, height: 340 }}
+              cardDimensions={{ width: "18vw", height: "50vh" }}
               cardsData={cards}
               setCards={setCards}
               activeCard={activeCard}
@@ -122,13 +122,13 @@ const Main = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "flex-end",
-                gap: "2px",
                 height: "100%",
+                gap: "2px",
                 zIndex: 2
               }}
             >
-              <Typography component={"span"}>{item.name}</Typography>
-              <Typography component={"span"}>{item.position}</Typography>
+              <Typography sx={{fontSize: "3vmin"}} component={"span"}>{item.name}</Typography>
+              <Typography sx={{fontSize: "2vmin"}} component={"span"}>{item.position}</Typography>
               <Box
                 component={motion.div}
                 initial={{ paddingRight: "0rem" }}
@@ -147,10 +147,10 @@ const Main = () => {
                 onMouseLeave={() => setIconVisible("")}
               >
                 <Typography
-                  variant="body2"
                   sx={{
                     textDecoration: "underline",
                     textUnderlineOffset: "0.3em",
+                    fontSize: "2vmin"
                   }}
                 >
                   {item.email}

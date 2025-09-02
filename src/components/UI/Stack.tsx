@@ -26,7 +26,7 @@ function CardRotate({ children }: CardRotateProps) {
 
 interface StackProps {
   sensitivity?: number;
-  cardDimensions?: { width: number; height: number };
+  cardDimensions?: { width: string; height: string };
   sendToBackOnClick?: boolean;
   cardsData?: { id: number; img: string }[];
   onSendToBack?: (id: number) => void;
@@ -48,7 +48,7 @@ interface StackProps {
 
 export default function Stack({
   sensitivity = 200,
-  cardDimensions = { width: 208, height: 208 },
+  cardDimensions = { width: "22vw", height: "50vh" },
   cardsData = [],
   setCards,
   activeCard,

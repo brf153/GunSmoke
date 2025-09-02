@@ -9,6 +9,7 @@ const Navbar = () => {
     <Box
       sx={{
         width: "100%",
+        height: "20vh",
         display: "flex",
         flexDirection: "column",
         gap: 4,
